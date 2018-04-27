@@ -12,7 +12,7 @@ namespace Rbc.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(new List<Caso>());
         }
 
         public IActionResult Error()
