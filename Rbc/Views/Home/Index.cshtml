@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Caso>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -7,8 +9,8 @@
         <h3>Casos de risco de câncer de colo de útero</h3>
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-success"><i class="fa fa-plus"></i> Adicionar caso</button>
-                <button class="btn btn-outline-secondary"> <i class="fa fa-folder"></i> Escolher caso</button>
+                <button id="adicionarCaso" class="btn btn-success" data-target="#modalAdicionarCaso" data-toggle="modal"><i class="fa fa-plus"></i> Adicionar caso</button>
+                <button id="escolherCaso" class="btn btn-outline-secondary"> <i class="fa fa-folder"></i> Escolher caso</button>
             </div>
         </div>
         <div class="row">
@@ -19,7 +21,7 @@
                     </div>
                     <input type="text" class="form-control" aria-describedby="basic-addon3" disabled>
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" title="Calcular similaridade"><i class="fa fa-calculator"></i></button>
+                        <button id="calcular" class="btn btn-primary" type="button" title="Calcular similaridade"><i class="fa fa-calculator"></i></button>
                     </div>
                 </div>
             </div>
@@ -32,7 +34,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Idade</th>
+                        <th></th>
                         <th>Nº Rel. Sexuais</th>
                         <th>Primeira Rel.</th>
                         <th>Nº Gestações</th>
@@ -45,7 +47,6 @@
                         <th>DIU (anos)</th>
                         <th>DST</th>
                         <th>Nº DST</th>
-                        <th>Condylomatosis </th>
                         <th>Condiloma</th>
                         <th>Condiloma Uterino</th>
                         <th>Condiloma Vaginal</th>
@@ -74,4 +75,127 @@
             </table>
         </div>
     </div>
+    <div class="card-footer">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1"><i class="fa fa-arrow-left"></i></a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#"><i class="fa fa-arrow-right"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
+
+    <div class="modal fade" id="modalAdicionarCaso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Adicionar caso</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model[0].Idade"></label>
+                                    <input class="form-control" type="number" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model[0].NumRelacoes"></label>
+                                    <input class="form-control" type="number" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model[0].PrimeiraRelacao"></label>
+                                    <input class="form-control" type="number" />
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model[0].NumGestacoes"></label>
+                                    <input class="form-control" type="number" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        @Html.Raw(Html.DisplayNameFor(model => model[0].Fuma))
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model[0].NumAnosFumo"></label>
+                                    <input class="form-control" type="number" disabled/>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model[0].NumMacosPorAno"></label>
+                                    <input class="form-control" type="number" disabled/>
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        @Html.Raw(Html.DisplayNameFor(model => model[0].ContraceptivoHormonal))
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model[0].NumAnosContraceptivo"></label>
+                                    <input class="form-control" type="number" />
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        @Html.Raw(Html.DisplayNameFor(model => model[0].Diu))
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model[0].NumAnosDiu"></label>
+                                    <input class="form-control" type="number" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section scripts{ 
+    <script>
+        
+    </script>
+}
