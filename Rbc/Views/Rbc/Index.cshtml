@@ -144,8 +144,8 @@
                 <span>Página <span class="badge badge-pill badge-primary">@Model.PageIndex</span> de <span class="badge badge-pill badge-secondary">@Model.TotalPages</span></span>
             </div>
             <div class="col-sm-12 d-flex justify-content-center">
-                <a class="btn btn-sm btn-outline-dark mr-2" asp-route-page="@Html.Raw(Model.PageIndex - 1)"><i class="fa fa-arrow-left"></i>  Anterior</a>
-                <a class="btn btn-sm btn-outline-dark" asp-action="Index" asp-route-page="@Html.Raw(Model.PageIndex + 1)">Próxima <i class="fa fa-arrow-right"></i></a>
+                <a class="btn btn-sm btn-outline-dark mr-2 @btnPreviousDisabled" asp-route-page="@Html.Raw(Model.PageIndex - 1)"><i class="fa fa-arrow-left"></i>  Anterior</a>
+                <a class="btn btn-sm btn-outline-dark @btnNextDisabled" asp-action="Index" asp-route-page="@Html.Raw(Model.PageIndex + 1)">Próxima <i class="fa fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
