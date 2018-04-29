@@ -1,4 +1,6 @@
-﻿@model List<Caso>
+﻿@model Rbc.Models.Util.PaginatedList<Caso>
+
+@using Rbc.Models.Util;
 
 @{
     ViewData["Title"] = "Casos";
@@ -35,12 +37,12 @@
                 <thead>
                     <tr>
                         <th>Simi. %</th>
-                        <th>Nº Rel. Sexuais</th>
+                        <th>Nº Parc. Sexuais</th>
                         <th>Primeira Rel.</th>
                         <th>Nº Gestações</th>
                         <th>Fuma</th>
                         <th>Fuma (anos)</th>
-                        <th>Maços/Ano</th>
+                        <th>Packs/Year</th>
                         <th>Contraceptivo Hormonal</th>
                         <th>Contraceptivo H. (anos)</th>
                         <th>DIU</th>
@@ -77,44 +79,44 @@
                     {
                         foreach (var caso in Model)
                         {
-                    <tr>
-                        <td>@caso.Similaridade</td>
-                        <td>@caso.NumRelacoes.ToAnswer()</td>
-                        <td>@caso.PrimeiraRelacao.ToAnswer()</td>
-                        <td>@caso.NumGestacoes.ToAnswer()</td>
-                        <td>@caso.Fuma.ToAnswer()</td>
-                        <td>@caso.NumAnosFumo.ToAnswer()</td>
-                        <td>@caso.NumMacosPorAno.ToAnswer()</td>
-                        <td>@caso.ContraceptivoHormonal.ToAnswer()</td>
-                        <td>@caso.NumAnosContraceptivo.ToAnswer()</td>
-                        <td>@caso.Diu.ToAnswer()</td>
-                        <td>@caso.NumAnosDiu.ToAnswer()</td>
-                        <td>@caso.Dst.ToAnswer()</td>
-                        <td>@caso.NumDst.ToAnswer()</td>
-                        <td>@caso.Condiloma.ToAnswer()</td>
-                        <td>@caso.CondilomaUterino.ToAnswer()</td>
-                        <td>@caso.CondilomaVaginal.ToAnswer()</td>
-                        <td>@caso.CondilomaVulvoPerineal.ToAnswer()</td>
-                        <td>@caso.Sifilis.ToAnswer()</td>
-                        <td>@caso.InflamacaoPelvica.ToAnswer()</td>
-                        <td>@caso.HerpesGenital.ToAnswer()</td>
-                        <td>@caso.MoluscoContagioso.ToAnswer()</td>
-                        <td>@caso.Aids.ToAnswer()</td>
-                        <td>@caso.Hiv.ToAnswer()</td>
-                        <td>@caso.HepatiteB.ToAnswer()</td>
-                        <td>@caso.Hpv.ToAnswer()</td>
-                        <td>@caso.DstNumDiag.ToAnswer()</td>
-                        <td>@caso.DstAnosPrimeiroDiag.ToAnswer()</td>
-                        <td>@caso.DstAnosUltimoDiag.ToAnswer()</td>
-                        <td>@caso.CancerDiag.ToAnswer()</td>
-                        <td>@caso.CinDiag.ToAnswer()</td>
-                        <td>@caso.HpvDiag.ToAnswer()</td>
-                        <td>@caso.Diagnosticado.ToAnswer()</td>
-                        <td>@caso.Hinselmann.ToResult()</td>
-                        <td>@caso.Schiller.ToResult()</td>
-                        <td>@caso.Citologia.ToResult()</td>
-                        <td>@caso.Biopsia.ToResult()</td>
-                    </tr>
+                            <tr>
+                                <td>@caso.Similaridade</td>
+                                <td>@caso.NumRelacoes.ToAnswer()</td>
+                                <td>@caso.PrimeiraRelacao.ToAnswer()</td>
+                                <td>@caso.NumGestacoes.ToAnswer()</td>
+                                <td>@caso.Fuma.ToAnswer()</td>
+                                <td>@caso.NumAnosFumo.ToAnswer()</td>
+                                <td>@caso.NumMacosPorAno.ToAnswer()</td>
+                                <td>@caso.ContraceptivoHormonal.ToAnswer()</td>
+                                <td>@caso.NumAnosContraceptivo.ToAnswer()</td>
+                                <td>@caso.Diu.ToAnswer()</td>
+                                <td>@caso.NumAnosDiu.ToAnswer()</td>
+                                <td>@caso.Dst.ToAnswer()</td>
+                                <td>@caso.NumDst.ToAnswer()</td>
+                                <td>@caso.Condiloma.ToAnswer()</td>
+                                <td>@caso.CondilomaUterino.ToAnswer()</td>
+                                <td>@caso.CondilomaVaginal.ToAnswer()</td>
+                                <td>@caso.CondilomaVulvoPerineal.ToAnswer()</td>
+                                <td>@caso.Sifilis.ToAnswer()</td>
+                                <td>@caso.InflamacaoPelvica.ToAnswer()</td>
+                                <td>@caso.HerpesGenital.ToAnswer()</td>
+                                <td>@caso.MoluscoContagioso.ToAnswer()</td>
+                                <td>@caso.Aids.ToAnswer()</td>
+                                <td>@caso.Hiv.ToAnswer()</td>
+                                <td>@caso.HepatiteB.ToAnswer()</td>
+                                <td>@caso.Hpv.ToAnswer()</td>
+                                <td>@caso.DstNumDiag.ToAnswer()</td>
+                                <td>@caso.DstAnosPrimeiroDiag.ToAnswer()</td>
+                                <td>@caso.DstAnosUltimoDiag.ToAnswer()</td>
+                                <td>@caso.CancerDiag.ToAnswer()</td>
+                                <td>@caso.CinDiag.ToAnswer()</td>
+                                <td>@caso.HpvDiag.ToAnswer()</td>
+                                <td>@caso.Diagnosticado.ToAnswer()</td>
+                                <td>@caso.Hinselmann.ToResult()</td>
+                                <td>@caso.Schiller.ToResult()</td>
+                                <td>@caso.Citologia.ToResult()</td>
+                                <td>@caso.Biopsia.ToResult()</td>
+                            </tr>
                         }
                     }
                 </tbody>
@@ -122,22 +124,30 @@
         </div>
     </div>
     <div class="card-footer">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1"><i class="fa fa-arrow-left"></i></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">6</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#"><i class="fa fa-arrow-right"></i></a>
-                </li>
-            </ul>
-        </nav>
+        <div class="row">
+            @* PAGINACAO *@
+            @{
+                string btnNextDisabled = "";
+                string btnPreviousDisabled = "";
+
+                if (Model.PageIndex == 1)
+                {
+                    btnPreviousDisabled = "disabled";
+                }
+
+                if (Model.PageIndex == Model.TotalPages)
+                {
+                    btnNextDisabled = "disabled";
+                }
+            }
+            <div class="col-sm-12 d-flex justify-content-center mb-1">
+                <span>Página <span class="badge badge-pill badge-primary">@Model.PageIndex</span> de <span class="badge badge-pill badge-secondary">@Model.TotalPages</span></span>
+            </div>
+            <div class="col-sm-12 d-flex justify-content-center">
+                <a class="btn btn-sm btn-outline-dark mr-2" asp-route-page="@Html.Raw(Model.PageIndex - 1)"><i class="fa fa-arrow-left"></i>  Anterior</a>
+                <a class="btn btn-sm btn-outline-dark" asp-action="Index" asp-route-page="@Html.Raw(Model.PageIndex + 1)">Próxima <i class="fa fa-arrow-right"></i></a>
+            </div>
+        </div>
     </div>
 </div>
 

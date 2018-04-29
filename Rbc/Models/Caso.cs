@@ -15,7 +15,7 @@ namespace Rbc.Models
         public int? Idade { get; set; }
 
         [Column("num_parceiros_sex")]
-        [Display(Name = "Nº Rel. Sexuais")]    
+        [Display(Name = "Nº Parc. Sexuais")]    
         public int? NumRelacoes { get; set; }
 
         [Column("idade_primeiro_intercurso")]

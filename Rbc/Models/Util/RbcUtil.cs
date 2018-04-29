@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Rbc.Models
+namespace Rbc.Models.Util
 {
-    public static class Rbc
+    public static class RbcUtil
     {
 
         //calculo da similaridade -> (valor da soma das variaveis/soma dos pesos das variaveis) = score

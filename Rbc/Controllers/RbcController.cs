@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rbc.Data;
 using Rbc.Models;
+using Rbc.Models.Util;
 
 namespace Rbc.Controllers
 {
@@ -19,10 +20,13 @@ namespace Rbc.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? page, int qtd = 40)
         {
-            var retorno = _context.Casos.Where(c => c.Origem == OrigemCaso.Dataset).Take(10).ToList();
-            return View(retorno);
+            if (page < 0)
+                page = 1;
+
+            var retorno = _context.Casos.Where(c => c.Origem == OrigemCaso.Dataset);
+            return View(await PaginatedList<Caso>.CreateAsync(retorno.AsNoTracking(), page ?? 1, qtd));
         }
 
         public IActionResult Error()
