@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <button id="adicionarCaso" class="btn btn-success" data-target="#modalAdicionarCaso" data-toggle="modal"><i class="fa fa-plus"></i> Adicionar caso</button>
-                <button id="escolherCaso" class="btn btn-outline-secondary"> <i class="fa fa-folder"></i> Escolher caso</button>
+                <button id="escolherCaso" class="btn btn-outline-secondary" data-target="#modalSelecionarCaso" data-toggle="modal"> <i class="fa fa-folder"></i> Escolher caso</button>
             </div>
         </div>
         <div class="row">
@@ -151,6 +151,7 @@
     </div>
 </div>
 
+@* MODAL adicionarCaso *@
 <div class="modal fade" id="modalAdicionarCaso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -243,6 +244,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button id="selecionarExistente" class="btn btn-outline-secondary"><i class="fa fa-folder"></i> Selecionar caso existente</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-success">Adicionar</button>
             </div>
@@ -250,8 +252,73 @@
     </div>
 </div>
 
+@* MODAL selecionarCaso *@
+<div class="modal fade" id="modalSelecionarCaso" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Selecionar caso <button id="novo" class="btn btn-success"><i class="fa fa-plus"></i> Novo</button></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center">
+                    <h4 id="loadingEscolherCaso" class="text-primary"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></h4>
+                </div>
+                <div id="casosAdicionados">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts{
     <script>
+        $("#modalSelecionarCaso").on("shown.bs.modal", function () {
+            mostrarLoadingCasos();
+            $.ajax(
+                {
+                    url: "/Rbc/RetornarCasosAdicionados",
+                    type: "GET",
+                    contentType: "application/json",
+                    success: function (data) {
+                        esconderLoadingCasos();
+                        renderizarCasos(data);
+                     }
+                });
+        });
 
+
+        $("#modalSelecionarCaso").on("hidden.bs.modal", function () { 
+            $("#casosAdicionados").html("");
+            //limpar array de controle na memoria
+        });
+
+        $("#novo").click(function () {
+            $("#modalSelecionarCaso").modal("hide");
+            $("#modalAdicionarCaso").modal("show");
+        });
+
+        $("#selecionarExistente").click(function () {
+            $("#modalAdicionarCaso").modal("hide");
+            $("#modalSelecionarCaso").modal("show");
+        });
+
+        function esconderLoadingCasos() {
+            $("#loadingEscolherCaso").hide();
+        }
+        function mostrarLoadingCasos() {
+            $("#loadingEscolherCaso").show();
+        }
+
+        function renderizarCasos(casos) {
+            if (casos.length > 0) {
+
+            } else {
+                $("#casosAdicionados").html("<div class='alert alert-warning' role='alert'><i class='fa fa-warning'></i> Nenhum caso encontrado.</div >");
+            }
+        }
     </script>
 }
