@@ -29,6 +29,33 @@ namespace Rbc.Controllers
             return View(await PaginatedList<Caso>.CreateAsync(retorno.AsNoTracking(), page ?? 1, qtd));
         }
 
+        public void AdicionarCaso(Caso caso)
+        {
+            ModelState.Remove("ID");
+            if(ModelState.ErrorCount == 0)
+            {
+                try
+                {
+                    _context.Casos.Add(caso);
+                    _context.SaveChanges();
+                    Response.StatusCode = 200;
+                }
+                catch (Exception)
+                {
+                    Response.StatusCode = 500;
+                }
+            }
+            else
+            {
+                Response.StatusCode = 500;
+            }
+        }
+
+        public JsonResult RetornarCasosAdicionados()
+        {
+            return Json(_context.Casos.Where(c => c.Origem == OrigemCaso.Aplicacao).ToList());
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
