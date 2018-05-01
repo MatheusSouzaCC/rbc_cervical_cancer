@@ -20,12 +20,34 @@ namespace Rbc.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? page, int qtd = 40)
+        public async Task<IActionResult> Index(int? page, int? casoId, bool calcular = false, int qtd = 40)
         {
             if (page < 0)
                 page = 1;
 
             var retorno = _context.Casos.Where(c => c.Origem == OrigemCaso.Dataset);
+
+            if (casoId != null)
+            {
+                ViewData["casoid"] = casoId;
+                if (calcular)
+                {
+                    try
+                    {
+                        var listaRetorno = RbcUtil.CalcularSimilaridade(retorno.ToList());
+                        return View(PaginatedList<Caso>.Create(listaRetorno, page ?? 1, qtd));
+                    }
+                    catch (Exception)
+                    {
+
+                        TempData["Erro"] = "Ocorreu um erro no cálculo da similaridade";
+                    }
+                }
+            }
+
+            if (calcular && casoId == null)
+                TempData["erro"] = "Você deve selecionar um caso antes de calcular a similaridade";
+
             return View(await PaginatedList<Caso>.CreateAsync(retorno.AsNoTracking(), page ?? 1, qtd));
         }
 
@@ -33,7 +55,7 @@ namespace Rbc.Controllers
         public JsonResult AdicionarCaso([FromBody] Caso caso)
         {
             ModelState.Remove("ID");
-            if(ModelState.ErrorCount == 0)
+            if (ModelState.ErrorCount == 0)
             {
                 try
                 {
@@ -44,7 +66,7 @@ namespace Rbc.Controllers
                     return Json(new { id = caso.ID });
                 }
                 catch (Exception e)
-                {                   
+                {
                     Response.StatusCode = 500;
                     return Json(new { message = e.Message });
                 }
@@ -58,7 +80,7 @@ namespace Rbc.Controllers
 
         public JsonResult RetornarCasosAdicionados()
         {
-            return Json(_context.Casos.Where(c => c.Origem == OrigemCaso.Aplicacao).ToList());
+            return Json(_context.Casos.Where(c => c.Origem == OrigemCaso.Aplicacao).OrderByDescending(c => c.ID).ToList());
         }
 
         public IActionResult Error()

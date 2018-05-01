@@ -6,6 +6,16 @@
     ViewData["Title"] = "Casos";
 }
 
+@if (TempData["erro"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><i class="fa fa-exclamation-triangle"></i> Erro: </strong> @Html.Raw(TempData["erro"])
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <div class="card">
     <div class="card-header">
         <h3>Casos de risco de câncer de colo de útero</h3>
@@ -17,15 +27,22 @@
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <div class="input-group mt-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon3">Caso selecionado</span>
+                <form asp-action="Index" asp-controller="Rbc">
+                    <div class="input-group mt-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">Caso selecionado</span>
+                        </div>
+                        <input id="casoSelecionado" type="text" class="form-control" aria-describedby="basic-addon3" value="@ViewData["casoid"]" disabled>
+                        <div class="input-group-append">
+                            <button id="calcular" class="btn btn-primary" type="submit" title="Calcular similaridade"><i class="fa fa-calculator"></i></button>
+                        </div>
+                        <div class="input-group-append">
+                            <a asp-action="Index" class="btn btn-danger" title="Cancelar seleção e listar todos os casos novamente"><i class="fa fa-times"></i></a>
+                        </div>
+                        <input id="casoIdHidden" type="hidden" name="casoid" value="@ViewData["casoid"]" />
+                        <input type="hidden" name="calcular" value="true" />
                     </div>
-                    <input id="casoSelecionado" type="text" class="form-control" aria-describedby="basic-addon3" disabled>
-                    <div class="input-group-append">
-                        <button id="calcular" class="btn btn-primary" type="button" title="Calcular similaridade"><i class="fa fa-calculator"></i></button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
 
@@ -225,7 +242,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].NumAnosContraceptivo"></label>
-                                <input id="numAnosContraceptivo" class="form-control" type="number" disabled/>
+                                <input id="numAnosContraceptivo" class="form-control" type="number" disabled />
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -239,7 +256,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].NumAnosDiu"></label>
-                                <input id="numAnosDiu" class="form-control" type="number" disabled/>
+                                <input id="numAnosDiu" class="form-control" type="number" disabled />
                             </div>
                         </div>
                     </div>

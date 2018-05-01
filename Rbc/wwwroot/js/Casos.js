@@ -145,6 +145,7 @@ function montarHtmlCollapse(caso) {
 $("#casosAdicionados").on("click", ".selecionar", function (e) {
     var id = $(e.currentTarget).data("id");
     $("#casoSelecionado").val(id);
+    $("#casoIdHidden").val(id);
     $("#modalSelecionarCaso").modal("hide");
 });
 

@@ -27,6 +27,15 @@ namespace Rbc.Models.Util
             return 1 - Math.Abs(v1c2 - v1c1) / (intervaloMax - intervaloMin);
         }
 
+        public static IList<Caso> CalcularSimilaridade(List<Caso> casos)
+        {
+            foreach (var caso in casos)
+            {
+                caso.Similaridade = 100;
+            }
+
+            return casos.OrderByDescending(c => c.Similaridade).Take(40).ToList();
+        }
         /*
          - Ordenar os itens com base no score.
          */
