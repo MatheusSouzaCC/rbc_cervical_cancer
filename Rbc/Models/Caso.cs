@@ -139,7 +139,7 @@ namespace Rbc.Models
         public bool? Diagnosticado { get; set; }
 
         [Column("colposcopia")]
-        [Display(Name = "Hinselmann?")]
+        [Display(Name = "Colposcopia?")]
         public bool? Hinselmann { get; set; }
 
         [Column("teste_schiller")]

@@ -29,25 +29,30 @@ namespace Rbc.Controllers
             return View(await PaginatedList<Caso>.CreateAsync(retorno.AsNoTracking(), page ?? 1, qtd));
         }
 
-        public void AdicionarCaso(Caso caso)
+        [HttpPost]
+        public JsonResult AdicionarCaso([FromBody] Caso caso)
         {
             ModelState.Remove("ID");
             if(ModelState.ErrorCount == 0)
             {
                 try
                 {
+                    caso.Origem = OrigemCaso.Aplicacao;
                     _context.Casos.Add(caso);
                     _context.SaveChanges();
                     Response.StatusCode = 200;
+                    return Json(new { id = caso.ID });
                 }
-                catch (Exception)
-                {
+                catch (Exception e)
+                {                   
                     Response.StatusCode = 500;
+                    return Json(new { message = e.Message });
                 }
             }
             else
             {
                 Response.StatusCode = 500;
+                return Json(new { message = "Modelo inválido" });
             }
         }
 

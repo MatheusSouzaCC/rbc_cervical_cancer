@@ -1,4 +1,6 @@
-﻿$("#modalSelecionarCaso").on("shown.bs.modal", function () {
+﻿var casosAdicionados = [];
+
+$("#modalSelecionarCaso").on("shown.bs.modal", function () {
     mostrarLoadingCasos();
     $.ajax(
         {
@@ -56,6 +58,7 @@ function renderizarCasos(casos) {
 function montarHtmlCollapse(caso) {
     var head = `<thead>
                              <tr>
+                                <th>Idade</th>
                                 <th>Nº Parc. Sexuais</th>
                                 <th>Primeira Rel.</th>
                                 <th>Nº Gestações</th>
@@ -87,13 +90,14 @@ function montarHtmlCollapse(caso) {
                                 <th>Diag. CIN</th>
                                 <th>Diag. HPV</th>
                                 <th>Diag.</th>
-                                <th>Hinselmann</th>
+                                <th>Colposcopia</th>
                                 <th>Schiller</th>
                                 <th>Citologia</th>
                                 <th>Biópsia</th>
                             </tr>
                     </thead>`;
     var body = `
+                <td>${caso.idade || "?"}</td>
                 <td>${caso.numRelacoes || "?"}</td>
                 <td>${caso.primeiraRelacao || "?"}</td>
                 <td>${caso.numGestacoes || "?"}</td>
@@ -155,11 +159,151 @@ $("#casosAdicionados").on("click", ".collapseButton", function (e) {
     }
 });
 
+$("#salvarCaso").click(function () {
+    var caso = {
+        Idade: $("#idade").val(),
+        NumRelacoes: $("#numParceiros").val(),
+        PrimeiraRelacao: $("#primeiraRelacao").val(),
+        NumGestacoes: $("#numGestacoes").val(),
+        Fuma: $("#fuma").prop("checked"),
+        NumAnosFumo: trocaVirgulaPorPonto($("#fumaAnos").val()),
+        NumMacosPorAno: trocaVirgulaPorPonto($("#macosAno").val()),
+        ContraceptivoHormonal: $("#contraceptivo").prop("checked"),
+        NumAnosContraceptivo: trocaVirgulaPorPonto($("#numAnosContraceptivo").val()),
+        Diu: $("#diu").prop("checked"),
+        NumAnosDiu: trocaVirgulaPorPonto($("#numAnosDiu").val()),
+        Dst: $("#dst").prop("checked"),
+        NumDst: trocaVirgulaPorPonto($("#numDst").val()),
+        Condiloma: $("#condiloma").prop("checked"),
+        CondilomaUterino: $("#condilomaUterino").prop("checked"),
+        CondilomaVaginal: $("#condilomaVaginal").prop("checked"),
+        CondilomaVulvoPerineal: $("#condilomaVulvoPerineal").prop("checked"),
+        Sifilis: $("#sifilis").prop("checked"),
+        InflamacaoPelvica: $("#inflamacaoPelvica").prop("checked"),
+        HerpesGenital: $("#herpesGenital").prop("checked"),
+        MoluscoContagioso: $("#moluscoContagioso").prop("checked"),
+        Aids: $("#aids").prop("checked"),
+        Hiv: $("#hiv").prop("checked"),
+        HepatiteB: $("#hepatiteB").prop("checked"),
+        Hpv: $("#hpv").prop("checked"),
+        DstNumDiag: trocaVirgulaPorPonto($("#numDst").val()),
+        DstAnosPrimeiroDiag: trocaVirgulaPorPonto($("#dstPrimeiro").val()),
+        DstAnosUltimoDiag: trocaVirgulaPorPonto($("#dstUltimo").val()),
+        CancerDiag: $("#cancerDiag").prop("checked"),
+        CinDiag: $("#cinDiag").prop("checked"),
+        HpvDiag: $("#hpvDiag").prop("checked"),
+        Diagnosticado: $("#diagnosticado").prop("checked"),
+        Hinselmann: $("#hinselmann").prop("checked"),
+        Schiller: $("#schiller").prop("checked"),
+        Citologia: $("#citologia").prop("checked"),
+        Biopsia: $("#biopsia").prop("checked"),
+        Id: 0
+    };
+    adicionarCaso(caso);
+});
+
+
+$("#fuma").change(function (e) {
+    if ($(e.currentTarget).prop("checked")) {
+        $("#fumaAnos").prop("disabled", false);
+        $("#macosAno").prop("disabled", false);
+    } else {
+        $("#fumaAnos").prop("disabled", true);
+        $("#fumaAnos").val("");
+        $("#macosAno").prop("disabled", true);
+        $("#macosAno").val("");
+    }
+});
+
+$("#contraceptivo").change(function (e) {
+    if ($(e.currentTarget).prop("checked")) {
+        $("#numAnosContraceptivo").prop("disabled", false);
+    } else {
+        $("#numAnosContraceptivo").prop("disabled", true);
+        $("#numAnosContraceptivo").val("");
+    }
+});
+
+
+$("#diu").change(function (e) {
+    if ($(e.currentTarget).prop("checked")) {
+        $("#numAnosDiu").prop("disabled", false);
+    } else {
+        $("#numAnosDiu").prop("disabled", true);
+        $("#numAnosDiu").val("");
+    }
+});
+
+$("#dst").change(function (e) {
+    if ($(e.currentTarget).prop("checked")) {
+        $("#numDst").prop("disabled", false);
+    } else {
+        $("#numDst").prop("disabled", true);
+        $("#numDst").val("");
+    }
+});
+
+function adicionarCaso(caso) {
+    $.ajax({
+        url: "/rbc/AdicionarCaso",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(caso),
+        success: function (data) {
+            $("#modalAdicionarCaso").modal("hide");
+            resetarCampos();
+            alert("Sucesso: Caso " + data.id + " salvo.");
+        },
+        error: function (data) {
+            alert("Erro: Não foi possível salvar o caso");
+        }
+    });
+}
+
+function resetarCampos() {
+    $("#idade").val("");
+    $("#numParceiros").val("");
+    $("#primeiraRelacao").val("");
+    $("#numGestacoes").val("");
+    $("#fuma").prop("checked", false);
+    $("#fumaAnos").val("");
+    $("#macosAno").val("");
+    $("#contraceptivo").prop("checked", false);
+    $("#numAnosContraceptivo").val("");
+    $("#diu").prop("checked", false);
+    $("#numAnosDiu").val("");
+    $("#dst").prop("checked", false);
+    $("#numDst").val("");
+    $("#condiloma").prop("checked", false);
+    $("#condilomaUterino").prop("checked", false);
+    $("#condilomaVaginal").prop("checked", false);
+    $("#condilomaVulvoPerineal").prop("checked", false);
+    $("#sifilis").prop("checked", false);
+    $("#inflamacaoPelvica").prop("checked", false);
+    $("#herpesGenital").prop("checked", false);
+    $("#moluscoContagioso").prop("checked", false);
+    $("#aids").prop("checked", false);
+    $("#hiv").prop("checked", false);
+    $("#hepatiteB").prop("checked", false);
+    $("#hpv").prop("checked", false);
+    $("#numDst").val("");
+    $("#dstPrimeiro").val("");
+    $("#dstUltimo").val("");
+    $("#cancerDiag").prop("checked", false);
+    $("#cinDiag").prop("checked", false);
+    $("#hpvDiag").prop("checked", false);
+    $("#diagnosticado").prop("checked", false);
+    $("#hinselmann").prop("checked", false);
+    $("#schiller").prop("checked", false);
+    $("#citologia").prop("checked", false);
+    $("#biopsia").prop("checked", false);
+}
+
 
 function retornarResultado(valor) {
     if (valor == true)
         return "Positivo";
-    else if(valor == false)
+    else if (valor == false)
         return "Negativo";
 
     return "?";
@@ -172,4 +316,8 @@ function retornarResposta(valor) {
         return "Não";
 
     return "?";
+}
+
+function trocaVirgulaPorPonto(num) {
+    return parseFloat(num.replace(',', '.'));
 }

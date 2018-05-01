@@ -37,6 +37,7 @@
                 <thead>
                     <tr>
                         <th>Simi. %</th>
+                        <th>Idade</th>
                         <th>Nº Parc. Sexuais</th>
                         <th>Primeira Rel.</th>
                         <th>Nº Gestações</th>
@@ -68,7 +69,7 @@
                         <th>Diag. CIN</th>
                         <th>Diag. HPV</th>
                         <th>Diag.</th>
-                        <th>Hinselmann</th>
+                        <th>Colposcopia</th>
                         <th>Schiller</th>
                         <th>Citologia</th>
                         <th>Biópsia</th>
@@ -81,6 +82,7 @@
                         {
                             <tr>
                                 <td>@caso.Similaridade</td>
+                                <td>@caso.Idade</td>
                                 <td>@caso.NumRelacoes.ToAnswer()</td>
                                 <td>@caso.PrimeiraRelacao.ToAnswer()</td>
                                 <td>@caso.NumGestacoes.ToAnswer()</td>
@@ -167,25 +169,25 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].Idade"></label>
-                                <input class="form-control" type="number" />
+                                <input id="idade" class="form-control" type="number" />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].NumRelacoes"></label>
-                                <input class="form-control" type="number" />
+                                <input id="numParceiros" class="form-control" type="number" />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].PrimeiraRelacao"></label>
-                                <input class="form-control" type="number" />
+                                <input id="primeiraRelacao" class="form-control" type="number" />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].NumGestacoes"></label>
-                                <input class="form-control" type="number" />
+                                <input id="numGestacoes" class="form-control" type="number" />
                             </div>
                         </div>
                     </div>
@@ -193,7 +195,7 @@
                         <div class="col-sm-2">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="">
+                                    <input id="fuma" class="form-check-input" type="checkbox" value="">
                                     @Html.Raw(Html.DisplayNameFor(model => model[0].Fuma))
                                 </label>
                             </div>
@@ -201,13 +203,13 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].NumAnosFumo"></label>
-                                <input class="form-control" type="number" disabled />
+                                <input id="fumaAnos" class="form-control" type="number" disabled />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].NumMacosPorAno"></label>
-                                <input class="form-control" type="number" disabled />
+                                <input id="macosAno" class="form-control" type="number" disabled />
                             </div>
                         </div>
                     </div>
@@ -215,7 +217,7 @@
                         <div class="col-sm-3">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="">
+                                    <input id="contraceptivo" class="form-check-input" type="checkbox" value="">
                                     @Html.Raw(Html.DisplayNameFor(model => model[0].ContraceptivoHormonal))
                                 </label>
                             </div>
@@ -223,13 +225,13 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].NumAnosContraceptivo"></label>
-                                <input class="form-control" type="number" />
+                                <input id="numAnosContraceptivo" class="form-control" type="number" disabled/>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="">
+                                    <input id="diu" class="form-check-input" type="checkbox" value="">
                                     @Html.Raw(Html.DisplayNameFor(model => model[0].Diu))
                                 </label>
                             </div>
@@ -237,7 +239,211 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="@Model[0].NumAnosDiu"></label>
-                                <input class="form-control" type="number" />
+                                <input id="numAnosDiu" class="form-control" type="number" disabled/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="dst" class="form-check-input" type="checkbox" value="true">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Dst))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="@Model[0].NumDst"></label>
+                                <input id="numDst" class="form-control" type="number" disabled />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="condiloma" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Condiloma))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="condilomaUterino" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].CondilomaUterino))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="condilomaVaginal" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].CondilomaVaginal))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="condilomaVulvoPerineal" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].CondilomaVulvoPerineal))
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="sifilis" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Sifilis))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="inflamacaoPelvica" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].InflamacaoPelvica))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="herpesGenital" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].HerpesGenital))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="moluscoContagioso" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].MoluscoContagioso))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="aids" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Aids))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="hiv" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Hiv))
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="hepatiteB" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].HepatiteB))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="hpv" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Hpv))
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label asp-for="@Model[0].DstNumDiag"></label>
+                                <input id="numDst" class="form-control" type="number" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="@Model[0].DstAnosPrimeiroDiag"></label>
+                                <input id="dstPrimeiro" class="form-control" type="number" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="@Model[0].DstAnosUltimoDiag"></label>
+                                <input id="dstUltimo" class="form-control" type="number" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="cancerDiag" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].CancerDiag))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="cinDiag" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].CinDiag))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="hpvDiag" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].HpvDiag))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="diagnosticado" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Diagnosticado))
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="hinselmann" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Hinselmann))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="schiller" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Schiller))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="citologia" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Citologia))
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input id="biopsia" class="form-check-input" type="checkbox" value="">
+                                    @Html.Raw(Html.DisplayNameFor(model => model[0].Biopsia))
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -246,7 +452,7 @@
             <div class="modal-footer">
                 <button id="selecionarExistente" class="btn btn-outline-secondary"><i class="fa fa-folder"></i> Selecionar caso existente</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-success">Adicionar</button>
+                <button id="salvarCaso" type="button" class="btn btn-success">Adicionar</button>
             </div>
         </div>
     </div>
@@ -275,16 +481,10 @@
 </div>
 
 @section scripts{
-
-    <script>
-        var casosAdicionados = [];       
-    </script>
-
     <environment names="Development">
         <script src="~/js/Casos.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/js/Casos.min.js"></script>
     </environment>
-
 }
