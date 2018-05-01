@@ -21,7 +21,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">Caso selecionado</span>
                     </div>
-                    <input type="text" class="form-control" aria-describedby="basic-addon3" disabled>
+                    <input id="casoSelecionado" type="text" class="form-control" aria-describedby="basic-addon3" disabled>
                     <div class="input-group-append">
                         <button id="calcular" class="btn btn-primary" type="button" title="Calcular similaridade"><i class="fa fa-calculator"></i></button>
                     </div>
@@ -275,50 +275,16 @@
 </div>
 
 @section scripts{
+
     <script>
-        $("#modalSelecionarCaso").on("shown.bs.modal", function () {
-            mostrarLoadingCasos();
-            $.ajax(
-                {
-                    url: "/Rbc/RetornarCasosAdicionados",
-                    type: "GET",
-                    contentType: "application/json",
-                    success: function (data) {
-                        esconderLoadingCasos();
-                        renderizarCasos(data);
-                     }
-                });
-        });
-
-
-        $("#modalSelecionarCaso").on("hidden.bs.modal", function () { 
-            $("#casosAdicionados").html("");
-            //limpar array de controle na memoria
-        });
-
-        $("#novo").click(function () {
-            $("#modalSelecionarCaso").modal("hide");
-            $("#modalAdicionarCaso").modal("show");
-        });
-
-        $("#selecionarExistente").click(function () {
-            $("#modalAdicionarCaso").modal("hide");
-            $("#modalSelecionarCaso").modal("show");
-        });
-
-        function esconderLoadingCasos() {
-            $("#loadingEscolherCaso").hide();
-        }
-        function mostrarLoadingCasos() {
-            $("#loadingEscolherCaso").show();
-        }
-
-        function renderizarCasos(casos) {
-            if (casos.length > 0) {
-
-            } else {
-                $("#casosAdicionados").html("<div class='alert alert-warning' role='alert'><i class='fa fa-warning'></i> Nenhum caso encontrado.</div >");
-            }
-        }
+        var casosAdicionados = [];       
     </script>
+
+    <environment names="Development">
+        <script src="~/js/Casos.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/Casos.min.js"></script>
+    </environment>
+
 }
