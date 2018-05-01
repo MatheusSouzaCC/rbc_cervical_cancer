@@ -12,7 +12,14 @@ namespace Rbc.Models.Util
 
         public static double ConsultarSimilaridade<TCaso>(TCaso caso) where TCaso : Caso // <- passar os dois casos a serem comparados
         {
-            // Chamar aqui -> ConsultarSimilaridadeParaTiposNumericos();
+            Type tipo = typeof(TCaso);
+            var atributos = tipo.GetProperties();
+
+            foreach(var atributo in atributos){
+                var similaridade = Similaridade.GetAtributoDeSimilaridade(atributo);
+                //similaridade.peso 
+            }
+
             return 0.0;
         }
 
