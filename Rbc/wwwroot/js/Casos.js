@@ -95,21 +95,21 @@ function montarHtmlCollapse(caso) {
                                 <th>Citologia</th>
                                 <th>Biópsia</th>
                             </tr>
-                    </thead>`;
+                    </thead>`;    
     var body = `
-                <td>${caso.idade || "?"}</td>
-                <td>${caso.numRelacoes || "?"}</td>
-                <td>${caso.primeiraRelacao || "?"}</td>
-                <td>${caso.numGestacoes || "?"}</td>
+                <td>${caso.idade != null ? caso.idade : "?"}</td>
+                <td>${caso.numRelacoes != null ? caso.numRelacoes : "?"}</td>
+                <td>${caso.primeiraRelacao != null ? caso.primeiraRelacao : "?"}</td>
+                <td>${caso.numGestacoes != null ? caso.numGestacoes : "?"}</td>
                 <td>${retornarResposta(caso.fuma)}</td>
-                <td>${caso.numAnosFumo ? caso.numAnosFumo.toFixed(1) : "?"}</td>
-                <td>${caso.macosAno ? caso.macosAno.toFixed(1) : "?"}</td>
+                <td>${caso.numAnosFumo != null ? caso.numAnosFumo.toFixed(1) : "?"}</td>
+                <td>${caso.numMacosPorAno != null ? caso.numMacosPorAno.toFixed(1) : "?"}</td>
                 <td>${retornarResposta(caso.contraceptivoHormonal)}</td>
-                <td>${caso.numAnosContraceptivo ? caso.numAnosContraceptivo.toFixed(1) : "?"}</td>
+                <td>${caso.numAnosContraceptivo != null ? caso.numAnosContraceptivo.toFixed(1) : "?"}</td>
                 <td>${retornarResposta(caso.diu)}</td>
                 <td>${caso.numAnosDiu ? caso.numAnosDiu.toFixed(1) : "?"}</td>
                 <td>${retornarResposta(caso.dst)}</td>
-                <td>${caso.numDst || "?"}</td>
+                <td>${caso.numDst != null ? caso.numDst : "?"}</td>
                 <td>${retornarResposta(caso.condiloma)}</td>
                 <td>${retornarResposta(caso.condilomaUterino)}</td>
                 <td>${retornarResposta(caso.condilomaVaginal)}</td>
@@ -122,9 +122,9 @@ function montarHtmlCollapse(caso) {
                 <td>${retornarResposta(caso.hiv)}</td>
                 <td>${retornarResposta(caso.hepatiteB)}</td>
                 <td>${retornarResposta(caso.hpv)}</td>
-                <td>${caso.dstNumDiag || "?"}</td>
-                <td>${caso.dstPrimeiroDiag ? caso.dstPrimeiroDiag.toFixed(1) : "?"}</td>
-                <td>${caso.dstUltimoDiag ? caso.dstUltimoDiag.toFixed(1) : "?"}</td>
+                <td>${caso.dstNumDiag != null ? caso.dstNumDiag : "?"}</td>
+                <td>${caso.dstAnosPrimeiroDiag != null ? caso.dstAnosPrimeiroDiag.toFixed(1) : "?"}</td>
+                <td>${caso.dstAnosUltimoDiag != null ? caso.dstAnosUltimoDiag.toFixed(1) : "?"}</td>
                 <td>${retornarResposta(caso.cancerDiag)}</td>
                 <td>${retornarResposta(caso.cinDiag)}</td>
                 <td>${retornarResposta(caso.hpvDiag)}</td>
