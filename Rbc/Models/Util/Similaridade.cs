@@ -10,6 +10,11 @@ namespace Rbc.Models.Util
     {
         public int peso;
 
+        public Similaridade()
+        {
+            peso = 1;
+        }
+
         public static Similaridade GetAtributoDeSimilaridade(PropertyInfo tipo)
         {
             var atributosCustomizados = tipo.GetCustomAttributes();

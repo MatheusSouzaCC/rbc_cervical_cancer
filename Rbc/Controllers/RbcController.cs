@@ -34,7 +34,8 @@ namespace Rbc.Controllers
                 {
                     try
                     {
-                        var listaRetorno = RbcUtil.CalcularSimilaridade(retorno.ToList());
+                        var casoProblema = _context.Casos.Where(c => c.ID == casoId).FirstOrDefault();
+                        var listaRetorno = RbcUtil.CompararSimilaridade(casoProblema,retorno.ToList());
                         return View(PaginatedList<Caso>.Create(listaRetorno, page ?? 1, qtd));
                     }
                     catch (Exception)
