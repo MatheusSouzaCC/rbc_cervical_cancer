@@ -22,7 +22,7 @@ namespace Rbc.Models
         [Display(Name = "Nº Parc. Sexuais")]
         public int? NumRelacoes { get; set; }
 
-        [Similaridade(peso = 4, min = 10, max = 32)]
+        [Similaridade(peso = 3, min = 10, max = 32)]
         [Column("idade_primeiro_intercurso")]
         [Display(Name = "Primeira Rel.")]
         public int? PrimeiraRelacao { get; set; }
@@ -57,12 +57,12 @@ namespace Rbc.Models
         [Display(Name = "Contraceptivo H. (anos)")]
         public double? NumAnosContraceptivo { get; set; }
 
-        [Similaridade(peso = 2)]
+        [Similaridade(peso = 3)]
         [Display(Name = "DIU?")]
         [Column("disp_intra_uterino")]
         public bool? Diu { get; set; }
 
-        [Similaridade(peso = 2, min = 0, max = 19)]
+        [Similaridade(peso = 3, min = 0, max = 19)]
         [Column("disp_intra_uterino_anos")]
         [Display(Name = "DIU (anos)")]
         public double? NumAnosDiu { get; set; }
@@ -77,7 +77,7 @@ namespace Rbc.Models
         [Display(Name = "Nº DST")]
         public int? NumDst { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 2)]
         [Column("codilomatose")]
         [Display(Name = "Condiloma?")]
         public bool? Condiloma { get; set; }
@@ -97,22 +97,22 @@ namespace Rbc.Models
         [Display(Name = "Condiloma Vulvo-perineal?")]
         public bool? CondilomaVulvoPerineal { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 2)]
         [Column("sifilis")]
         [Display(Name = "Sífilis?")]
         public bool? Sifilis { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 2)]
         [Column("doenca_inflamatoria_pelvica")]
         [Display(Name = "Inflamação Pélvica?")]
         public bool? InflamacaoPelvica { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 2)]
         [Column("herpes_genital")]
         [Display(Name = "Herpes Genital?")]
         public bool? HerpesGenital { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 2)]
         [Column("molusco_contagioso")]
         [Display(Name = "Molusco Contagioso?")]
         public bool? MoluscoContagioso { get; set; }
@@ -127,12 +127,12 @@ namespace Rbc.Models
         [Display(Name = "HIV?")]
         public bool? Hiv { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 2)]
         [Column("hepatite_b")]
         [Display(Name = "Hepatite B?")]
         public bool? HepatiteB { get; set; }
 
-        [Similaridade(peso = 5)]
+        [Similaridade(peso = 6)]
         [Column("hpv")]
         [Display(Name = "HPV?")]
         public bool? Hpv { get; set; }
@@ -152,12 +152,12 @@ namespace Rbc.Models
         [Display(Name = "DST Anos Último Diag.")]
         public double? DstAnosUltimoDiag { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 3)]
         [Column("diagnosticado_cancer")]
         [Display(Name = "Diag. Câncer?")]
         public bool? CancerDiag { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 2)]
         [Column("diagnosticado_cin")]
         [Display(Name = "Diag. CIN?")]
         public bool? CinDiag { get; set; }
@@ -167,27 +167,27 @@ namespace Rbc.Models
         [Display(Name = "Diag. HPV?")]
         public bool? HpvDiag { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 7)]
         [Column("diagnosticado")]
         [Display(Name = "Diag.?")]
         public bool? Diagnosticado { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 4)]
         [Column("colposcopia")]
         [Display(Name = "Colposcopia?")]
         public bool? Hinselmann { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 3)]
         [Column("teste_schiller")]
         [Display(Name = "Schiller?")]
         public bool? Schiller { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 5)]
         [Column("citologia_oncotica")]
         [Display(Name = "Citologia?")]
         public bool? Citologia { get; set; }
 
-        [Similaridade()]
+        [Similaridade(peso = 2)]
         [Column("biopsia")]
         [Display(Name = "Biópsia?")]
         public bool? Biopsia { get; set; }
