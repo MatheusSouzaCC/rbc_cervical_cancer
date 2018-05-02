@@ -9,6 +9,8 @@ namespace Rbc.Models.Util
     public class Similaridade : Attribute
     {
         public int peso;
+        public int min;
+        public int max;
 
         public Similaridade()
         {

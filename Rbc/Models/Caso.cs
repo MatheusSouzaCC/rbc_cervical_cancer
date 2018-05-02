@@ -13,21 +13,21 @@ namespace Rbc.Models
         [Column("id")]
         public int ID { get; set; }
 
-        [Similaridade(peso = 2)]
+        [Similaridade(peso = 2,min = 13, max = 84)]
         [Column("idade")]
         public int? Idade { get; set; }
 
-        [Similaridade(peso = 4)]
+        [Similaridade(peso = 4, min = 1 , max = 28)]
         [Column("num_parceiros_sex")]
         [Display(Name = "Nº Parc. Sexuais")]
         public int? NumRelacoes { get; set; }
 
-        [Similaridade(peso = 4)]
+        [Similaridade(peso = 4, min = 10, max = 32)]
         [Column("idade_primeiro_intercurso")]
         [Display(Name = "Primeira Rel.")]
         public int? PrimeiraRelacao { get; set; }
 
-        [Similaridade(peso = 3)]
+        [Similaridade(peso = 3, min = 0, max = 11)]
         [Column("num_gestacoes")]
         [Display(Name = "Nº Gestações")]
         public int? NumGestacoes { get; set; }
@@ -37,12 +37,12 @@ namespace Rbc.Models
         [Display(Name = "Fuma?")]
         public bool? Fuma { get; set; }
 
-        [Similaridade()]
+        [Similaridade(min =0, max = 37)]
         [Column("anos_fumante")]
         [Display(Name = "Fuma (anos)")]
         public double? NumAnosFumo { get; set; }
 
-        [Similaridade()]
+        [Similaridade(min = 0, max = 37)]
         [Column("macos_ano")]
         [Display(Name = "Pack/Year")]
         public double? NumMacosPorAno { get; set; }
@@ -52,7 +52,7 @@ namespace Rbc.Models
         [Display(Name = "Contraceptivo Hormonal")]
         public bool? ContraceptivoHormonal { get; set; }
 
-        [Similaridade(peso = 2)]
+        [Similaridade(peso = 2, min = 0, max = 30)]
         [Column("contraceptivos_hormonais_anos")]
         [Display(Name = "Contraceptivo H. (anos)")]
         public double? NumAnosContraceptivo { get; set; }
@@ -62,7 +62,7 @@ namespace Rbc.Models
         [Column("disp_intra_uterino")]
         public bool? Diu { get; set; }
 
-        [Similaridade(peso = 2)]
+        [Similaridade(peso = 2, min = 0, max = 19)]
         [Column("disp_intra_uterino_anos")]
         [Display(Name = "DIU (anos)")]
         public double? NumAnosDiu { get; set; }
@@ -72,7 +72,7 @@ namespace Rbc.Models
         [Display(Name = "DST?")]
         public bool? Dst { get; set; }
 
-        [Similaridade(peso = 3)]
+        [Similaridade(peso = 3, min = 0, max = 4)]
         [Column("num_dst")]
         [Display(Name = "Nº DST")]
         public int? NumDst { get; set; }
@@ -137,17 +137,17 @@ namespace Rbc.Models
         [Display(Name = "HPV?")]
         public bool? Hpv { get; set; }
 
-        [Similaridade()]
+        [Similaridade(min = 0, max = 3)]
         [Column("num_diagnosticos")]
         [Display(Name = "DST Nº Diag.")]
         public int? DstNumDiag { get; set; }
 
-        [Similaridade()]
+        [Similaridade(min = 1, max = 22)]
         [Column("anos_primeiro_diagnostico")]
         [Display(Name = "DST Anos Primeiro Diag.")]
         public double? DstAnosPrimeiroDiag { get; set; }
 
-        [Similaridade()]
+        [Similaridade(min = 1, max = 22)]
         [Column("anos_ultimo_diagnostico")]
         [Display(Name = "DST Anos Último Diag.")]
         public double? DstAnosUltimoDiag { get; set; }

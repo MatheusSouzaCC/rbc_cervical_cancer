@@ -48,10 +48,10 @@ namespace Rbc.Models.Util
                     else
                     {
                         if (atributo.PropertyType == typeof(int?))
-                            similaridade = ConsultarSimilaridadeParaTiposInteiros((int)v1c1, (int)v1c2, 0, 100);
+                            similaridade = ConsultarSimilaridadeParaTiposInteiros((int)v1c1, (int)v1c2, atributoDeSimilaridade.min, atributoDeSimilaridade.max);
 
                         else if (atributo.PropertyType == typeof(double?))
-                            similaridade = ConsultarSimilaridadeParaTiposDecimais((double)v1c1, (double)v1c2, 0, 100);
+                            similaridade = ConsultarSimilaridadeParaTiposDecimais((double)v1c1, (double)v1c2, atributoDeSimilaridade.min, atributoDeSimilaridade.max);
 
                         else if (atributo.PropertyType == typeof(bool?))
                             similaridade = ConsultarSimilaridadeParaTiposBooleanos((bool)v1c1, (bool)v1c2);
